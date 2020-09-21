@@ -14,23 +14,19 @@ spring:
       bindings:
         # Input(s)
         generateExchangeDataModel-in-0:
-          destination: ${GENERATE_EXCHANGE_DATA_MODEL_INPUT_0:myDefault}
-        generateExchangeDataModel-in-1:
-          destination: ${GENERATE_EXCHANGE_DATA_MODEL_INPUT_1:default}
+          destination: ${GENERATE_EXCHANGE_DATA_MODEL_INPUT_0:eod.nonprod.financial.exchanges.ingestion.v1}
 
       kafka.streams:
         bindings:
           generateExchangeDataModel-in-0-consumer:
-            applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_0}
+            applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_0:eod_exchange_consumer_0_id_000001}
             dlqName: ${GENERATE_EXCHANGE_DATA_MODEL_DLQ_TOPIC_0}
-          generateExchangeDataModel-in-1-consumer:
-            applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_1}
-            dlqName: ${GENERATE_EXCHANGE_DATA_MODEL_DLQ_TOPIC_1}
 
         binder:
-          brokers: broker
+          brokers: ${KAFKA_BROKER_ADDRESS:localhost:9092}
           deserializationExceptionHandler: ${DESERIALIZATION_EXCEPTION_HANDLER:logAndFail} # Optional: logAndFail, sendToDlq, logAndSkip
           configuration:
+            spring.json.trusted.packages: "*"
             # Internal Topics
             replication.factor: ${INTERNAL_TOPIC_REPLICATION_FACTOR:3}
             # Broker Security

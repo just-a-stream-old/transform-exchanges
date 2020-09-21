@@ -6,9 +6,11 @@ import finance.modelling.fmcommons.data.schema.eod.dto.EodExchangeDTO;
 import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 import java.util.function.Consumer;
 
+@Service
 public class ExchangeDataModelServiceImpl implements ExchangeDataModelService {
 
     private final String inputEodExchangesTopic;
@@ -26,6 +28,6 @@ public class ExchangeDataModelServiceImpl implements ExchangeDataModelService {
 
         return eodExchanges -> eodExchanges
                 .transformValues(() -> new LogMessageConsumed<>("x-trace-id"))
-                .peek((key, value) -> System.out.println(value));
+                .peek((key, value) -> System.out.println(value.toString()));
     }
 }
