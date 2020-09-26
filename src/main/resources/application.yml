@@ -17,12 +17,13 @@ spring:
           destination: ${GENERATE_EXCHANGE_DATA_MODEL_INPUT_0:eod.nonprod.financial.exchanges.ingestion.v1}
 
       kafka.streams:
+        header.traceId: x-trace-id
         bindings:
           generateExchangeDataModel-in-0:
             dlqName: ${GENERATE_EXCHANGE_DATA_MODEL_DLQ_TOPIC_0}
 
         binder:
-          applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_0:nonprod_exchange_data_model_in_0_eod_exchange_consumer_0_id_000001}
+          applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_0:nonprod_exchange_data_model_in_0_eod_exchange_consumer_0_id_000005}
           brokers: ${KAFKA_BROKER_ADDRESS:localhost:9092}
           deserializationExceptionHandler: ${DESERIALIZATION_EXCEPTION_HANDLER:logAndFail} # Optional: logAndFail, sendToDlq, logAndContinue
           configuration:
