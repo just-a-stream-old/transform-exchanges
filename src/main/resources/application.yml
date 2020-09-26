@@ -1,11 +1,11 @@
 context:
-  envName: ${CONTEXT_ENV_NAME:dev01}
+  envName: ${CONTEXT_ENV_NAME:nonprod}
 
 spring:
   # Spring Data JPA
   data.mongodb:
-    port: {REPOSITORY_PORT:27017}
-    host: {REPOSITORY_HOST:localhost}
+    host: ${REPOSITORY_HOST:localhost}
+    port: ${REPOSITORY_PORT:27017}
 
   # Spring Cloud Stream
   cloud:
@@ -14,23 +14,20 @@ spring:
       bindings:
         # Input(s)
         generateExchangeDataModel-in-0:
-          destination: ${GENERATE_EXCHANGE_DATA_MODEL_INPUT_0:myDefault}
-        generateExchangeDataModel-in-1:
-          destination: ${GENERATE_EXCHANGE_DATA_MODEL_INPUT_1:default}
+          destination: ${GENERATE_EXCHANGE_DATA_MODEL_INPUT_0:eod.nonprod.financial.exchanges.ingestion.v1}
 
       kafka.streams:
+        header.traceId: x-trace-id
         bindings:
-          generateExchangeDataModel-in-0-consumer:
-            applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_0}
+          generateExchangeDataModel-in-0:
             dlqName: ${GENERATE_EXCHANGE_DATA_MODEL_DLQ_TOPIC_0}
-          generateExchangeDataModel-in-1-consumer:
-            applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_1}
-            dlqName: ${GENERATE_EXCHANGE_DATA_MODEL_DLQ_TOPIC_1}
 
         binder:
-          brokers: broker
-          deserializationExceptionHandler: ${DESERIALIZATION_EXCEPTION_HANDLER:logAndFail} # Optional: logAndFail, sendToDlq, logAndSkip
+          applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_0:nonprod_exchange_data_model_in_0_eod_exchange_consumer_0_id_000006}
+          brokers: ${KAFKA_BROKER_ADDRESS:localhost:9092}
+          deserializationExceptionHandler: ${DESERIALIZATION_EXCEPTION_HANDLER:logAndFail} # Optional: logAndFail, sendToDlq, logAndContinue
           configuration:
+            spring.json.trusted.packages: "*"
             # Internal Topics
             replication.factor: ${INTERNAL_TOPIC_REPLICATION_FACTOR:3}
             # Broker Security
@@ -41,3 +38,4 @@ spring:
             # SerDes
             default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
             default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
+
