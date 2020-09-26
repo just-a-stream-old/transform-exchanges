@@ -1,5 +1,5 @@
 context:
-  envName: ${CONTEXT_ENV_NAME:dev01}
+  envName: ${CONTEXT_ENV_NAME:nonprod}
 
 spring:
   # Spring Data JPA
@@ -18,13 +18,13 @@ spring:
 
       kafka.streams:
         bindings:
-          generateExchangeDataModel-in-0-consumer:
-            applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_0:eod_exchange_consumer_0_id_000001}
+          generateExchangeDataModel-in-0:
             dlqName: ${GENERATE_EXCHANGE_DATA_MODEL_DLQ_TOPIC_0}
 
         binder:
+          applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_0:nonprod_exchange_data_model_in_0_eod_exchange_consumer_0_id_000001}
           brokers: ${KAFKA_BROKER_ADDRESS:localhost:9092}
-          deserializationExceptionHandler: ${DESERIALIZATION_EXCEPTION_HANDLER:logAndFail} # Optional: logAndFail, sendToDlq, logAndSkip
+          deserializationExceptionHandler: ${DESERIALIZATION_EXCEPTION_HANDLER:logAndFail} # Optional: logAndFail, sendToDlq, logAndContinue
           configuration:
             spring.json.trusted.packages: "*"
             # Internal Topics
@@ -37,3 +37,4 @@ spring:
             # SerDes
             default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
             default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
+
