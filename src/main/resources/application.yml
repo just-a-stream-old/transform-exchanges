@@ -4,8 +4,8 @@ context:
 spring:
   # Spring Data JPA
   data.mongodb:
-    port: {REPOSITORY_PORT:27017}
     host: {REPOSITORY_HOST:localhost}
+    port: {REPOSITORY_PORT:27017}
 
   # Spring Cloud Stream
   cloud:
