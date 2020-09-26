@@ -4,8 +4,8 @@ context:
 spring:
   # Spring Data JPA
   data.mongodb:
-    host: {REPOSITORY_HOST:localhost}
-    port: {REPOSITORY_PORT:27017}
+    host: ${REPOSITORY_HOST:localhost}
+    port: ${REPOSITORY_PORT:27017}
 
   # Spring Cloud Stream
   cloud:
@@ -23,7 +23,7 @@ spring:
             dlqName: ${GENERATE_EXCHANGE_DATA_MODEL_DLQ_TOPIC_0}
 
         binder:
-          applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_0:nonprod_exchange_data_model_in_0_eod_exchange_consumer_0_id_000005}
+          applicationId: ${GENERATE_EXCHANGE_DATA_MODEL_APP_ID_0:nonprod_exchange_data_model_in_0_eod_exchange_consumer_0_id_000006}
           brokers: ${KAFKA_BROKER_ADDRESS:localhost:9092}
           deserializationExceptionHandler: ${DESERIALIZATION_EXCEPTION_HANDLER:logAndFail} # Optional: logAndFail, sendToDlq, logAndContinue
           configuration:

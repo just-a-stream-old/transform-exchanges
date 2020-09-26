@@ -2,7 +2,7 @@ package finance.modelling.data.transform.transformexchanges.repository.mapper;
 
 import finance.modelling.fmcommons.data.schema.eod.dto.EodExchangeDTO;
 import finance.modelling.fmcommons.data.schema.model.Exchange;
-import finance.modelling.fmcommons.data.schema.model.FinanceApi;
+import finance.modelling.fmcommons.data.schema.model.enums.FinanceApi;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
