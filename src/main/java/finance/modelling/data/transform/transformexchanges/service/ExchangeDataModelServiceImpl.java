@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 @Service
-@Slf4j
 public class ExchangeDataModelServiceImpl implements ExchangeDataModelService {
 
     private final TopicConfig topics;

@@ -1,5 +1,8 @@
+server.port: ${API_WEB_SERVER_PORT:7002}
+
 context:
   envName: ${CONTEXT_ENV_NAME:nonprod}
+  version: ${CONTEXT_VERSION:v1}
 
 spring:
   # Spring Data JPA
@@ -38,4 +41,3 @@ spring:
             # SerDes
             default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
             default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
-
